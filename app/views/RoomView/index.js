@@ -809,6 +809,22 @@ class RoomView extends React.Component {
 		}
 	}
 
+	navToRoomPreview = async({ rid, name }) => {
+		const { navigation, user: { id: uid } } = this.props;
+		logEvent(events['ROOM_GO_ROOM_PREVIEW`']);
+		try {
+			const room = await RocketChat.canAccessRoom(rid, uid);
+			if (room) {
+				await navigation.navigate('RoomsListView');
+				navigation.navigate('RoomView', { rid, name, t: room.t });
+			} else {
+				EventEmitter.emit(LISTENER, { message: I18n.t('error-not-allowed') });
+			}
+		} catch {
+			EventEmitter.emit(LISTENER, { message: I18n.t('You_are_offline') });
+		}
+	}
+
 	callJitsi = () => {
 		const { room } = this.state;
 		const { jitsiTimeout } = room;
@@ -923,6 +939,7 @@ class RoomView extends React.Component {
 				autoTranslateRoom={canAutoTranslate && room.autoTranslate}
 				autoTranslateLanguage={room.autoTranslateLanguage}
 				navToRoomInfo={this.navToRoomInfo}
+				navToRoomPreview={this.navToRoomPreview}
 				getCustomEmoji={this.getCustomEmoji}
 				callJitsi={this.callJitsi}
 				blockAction={this.blockAction}

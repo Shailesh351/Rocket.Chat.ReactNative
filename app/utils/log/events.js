@@ -216,6 +216,7 @@ export default {
 	ROOM_GO_THREADS: 'room_go_threads',
 	ROOM_GO_ROOM_INFO: 'room_go_room_info',
 	ROOM_GO_USER_INFO: 'room_go_user_info',
+	ROOM_GO_ROOM_PREVIEW: 'room_go_room_preview',
 	ROOM_MENTION_GO_USER_INFO: 'room_mention_go_user_info',
 	COMMAND_RUN: 'command_run',
 	COMMAND_RUN_F: 'command_run_f',
